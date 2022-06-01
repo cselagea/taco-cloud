@@ -68,7 +68,6 @@ public class DesignTacoController {
                                 .collect(groupingBy(ingredient -> ingredient.type().toString().toLowerCase()));
     }
 
-    // TODO experiment with MapStruct
     private Taco mapToTaco(TacoDto design) {
         List<Ingredient> ingredients =
                 design.getIngredients()
