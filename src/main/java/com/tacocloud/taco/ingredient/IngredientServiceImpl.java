@@ -2,11 +2,8 @@ package com.tacocloud.taco.ingredient;
 
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
-import java.util.stream.StreamSupport;
-
-import static java.util.stream.Collectors.groupingBy;
 
 @Service
 public class IngredientServiceImpl implements IngredientService {
@@ -18,12 +15,12 @@ public class IngredientServiceImpl implements IngredientService {
     }
 
     @Override
-    public Map<IngredientType, List<Ingredient>> getIngredientsGroupedByType() {
-        Iterable<Ingredient> ingredients = ingredientRepository.findAll();
-
-        return StreamSupport.stream(ingredients.spliterator(), false)
-                            .collect(groupingBy(Ingredient::type));
-
+    public List<Ingredient> getAllIngredients() {
+        List<Ingredient> ingredients = new ArrayList<>();
+        for (Ingredient ingredient : ingredientRepository.findAll()) {
+            ingredients.add(ingredient);
+        }
+        return ingredients;
     }
 
     @Override

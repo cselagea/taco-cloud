@@ -2,6 +2,7 @@ package com.tacocloud.taco;
 
 import com.tacocloud.order.OrderDto;
 import com.tacocloud.taco.ingredient.Ingredient;
+import com.tacocloud.taco.ingredient.IngredientDto;
 import com.tacocloud.taco.ingredient.IngredientService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -12,7 +13,7 @@ import javax.validation.Valid;
 import java.util.List;
 import java.util.Map;
 
-import static java.util.stream.Collectors.toMap;
+import static java.util.stream.Collectors.groupingBy;
 
 @Controller
 @RequestMapping("/design")
@@ -40,7 +41,7 @@ public class DesignTacoController {
 
     @GetMapping
     public String showDesignForm(Model model) {
-        model.addAllAttributes(getIngredientsGroupedByTypeString());
+        model.addAllAttributes(getIngredientsGroupedByType());
         return "design";
     }
 
@@ -49,7 +50,7 @@ public class DesignTacoController {
                                 Model model, @ModelAttribute("order") OrderDto order) {
 
         if (errors.hasErrors()) {
-            model.addAllAttributes(getIngredientsGroupedByTypeString());
+            model.addAllAttributes(getIngredientsGroupedByType());
             return "design";
         }
 
@@ -60,13 +61,11 @@ public class DesignTacoController {
         return "redirect:/orders/current";
     }
 
-    private Map<String, List<Ingredient>> getIngredientsGroupedByTypeString() {
-        // map keys to String
-        return ingredientService.getIngredientsGroupedByType()
-                                .entrySet()
+    private Map<String, List<IngredientDto>> getIngredientsGroupedByType() {
+        return ingredientService.getAllIngredients()
                                 .stream()
-                                .collect(toMap(entry -> entry.getKey().toString().toLowerCase(),
-                                        Map.Entry::getValue));
+                                .map(ingredient -> new IngredientDto(ingredient.id(), ingredient.name(), ingredient.type()))
+                                .collect(groupingBy(ingredient -> ingredient.type().toString().toLowerCase()));
     }
 
     // TODO experiment with MapStruct
