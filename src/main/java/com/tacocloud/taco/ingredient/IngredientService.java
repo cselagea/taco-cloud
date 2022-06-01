@@ -1,11 +1,12 @@
 package com.tacocloud.taco.ingredient;
 
 import java.util.List;
+import java.util.Optional;
 
 public interface IngredientService {
 
     List<Ingredient> getAllIngredients();
 
-    Ingredient findById(String id);
+    Optional<Ingredient> findById(String id);
 
 }

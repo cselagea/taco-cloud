@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
 import static java.util.stream.Collectors.groupingBy;
 
@@ -73,6 +74,7 @@ public class DesignTacoController {
                 design.getIngredients()
                       .stream()
                       .map(ingredientService::findById)
+                      .flatMap(Optional::stream)
                       .toList();
 
         Taco taco = new Taco();
