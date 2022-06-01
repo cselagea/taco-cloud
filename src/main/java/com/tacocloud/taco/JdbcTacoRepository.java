@@ -45,7 +45,7 @@ public class JdbcTacoRepository implements TacoRepository {
     private void saveIngredientToTaco(Ingredient ingredient, Long tacoId) {
         Map<String, ?> values = Map.ofEntries(
                 Map.entry("taco_id", tacoId),
-                Map.entry("ingredient_id", ingredient.id())
+                Map.entry("ingredient_id", ingredient.getId())
         );
         tacoIngredientInsert.execute(values);
     }

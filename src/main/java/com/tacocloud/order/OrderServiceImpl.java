@@ -15,6 +15,7 @@ public class OrderServiceImpl implements OrderService {
 
     @Override
     public Order save(Order order) {
+        // TODO use pre-persist
         order.setPlacedAt(Instant.now());
         return orderRepository.save(order);
     }

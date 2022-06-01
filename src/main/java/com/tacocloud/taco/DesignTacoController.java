@@ -64,7 +64,7 @@ public class DesignTacoController {
     private Map<String, List<IngredientDto>> getIngredientsGroupedByType() {
         return ingredientService.getAllIngredients()
                                 .stream()
-                                .map(ingredient -> new IngredientDto(ingredient.id(), ingredient.name(), ingredient.type()))
+                                .map(ingredient -> new IngredientDto(ingredient.getId(), ingredient.getName(), ingredient.getType()))
                                 .collect(groupingBy(ingredient -> ingredient.type().toString().toLowerCase()));
     }
 

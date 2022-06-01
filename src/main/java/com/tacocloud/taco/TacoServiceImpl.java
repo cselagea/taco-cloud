@@ -15,6 +15,7 @@ public class TacoServiceImpl implements TacoService {
 
     @Override
     public Taco save(Taco taco) {
+        // TODO use pre-persist
         taco.setCreatedAt(Instant.now());
         return tacoRepository.save(taco);
     }
