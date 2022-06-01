@@ -1,6 +1,7 @@
 package com.tacocloud.taco;
 
 import com.tacocloud.taco.ingredient.Ingredient;
+import org.springframework.context.annotation.Profile;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.simple.SimpleJdbcInsert;
 import org.springframework.stereotype.Repository;
@@ -8,6 +9,7 @@ import org.springframework.stereotype.Repository;
 import java.util.Map;
 
 @Repository
+@Profile("jdbc")
 public class JdbcTacoRepository implements TacoRepository {
 
     private final SimpleJdbcInsert tacoInsert;
